@@ -1,5 +1,6 @@
 ﻿using Program;
 using System;
+using System.Runtime.CompilerServices;
 
 namespace App
 {
@@ -9,6 +10,9 @@ namespace App
         {
             string userChose;
             bool flag = false;
+
+            string brand;
+            string color;
 
             do
             {
@@ -26,20 +30,31 @@ namespace App
                     flag = true;
                     Console.WriteLine("Wybrano Lodówkę \n");
 
-                    Fridge fridge = new Fridge();
+                    setBrand();
+                    setColor();
+
+                    Fridge fridge = new Fridge(brand, color);
 
                 }
                 else if (userChose == "pralka" || userChose == "p" || userChose == "2")
                 {
                     flag = true;
-                    Console.WriteLine("Wybrano Pralke");
+                    Console.WriteLine("Wybrano Pralke \n");
 
-                    WashingMachine washingMachine = new WashingMachine();
+                    setBrand();
+                    setColor();
+
+                    WashingMachine washingMachine = new WashingMachine(brand, color);
+
+                    washingMachine.setWashingTime();
+                    washingMachine.setWashingTemperature();
+                    washingMachine.setWashingRPM();
+
                 }
                 else
                 { 
                     flag = false;
-                    Console.WriteLine("Nieprawidłowy wybór, spróbuj ponownie! \n");
+                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
                 }
 
             } while(flag == false);
@@ -48,6 +63,69 @@ namespace App
 
             Console.ReadLine();
 
+
+            string setBrand()
+            {
+                bool brandIsChoosen = false;
+                do
+                {
+                    Console.WriteLine("Dostępne opcje: ");
+                    Console.WriteLine("1. Whirpool");
+                    Console.WriteLine("2. Bosh");
+                    Console.WriteLine("3. Beko \n");
+
+                    Console.Write("Wybierz markę: ");
+                    brand = Console.ReadLine();
+                    brand = brand.ToLower();
+                    if (brand == "whirpool" || brand == "bosh" || brand == "beko" ||
+                        brand == "1" || brand == "2" || brand == "3")
+                    {
+                        brandIsChoosen = true;
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        brandIsChoosen = false;
+                        Console.Clear();
+                        Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
+                    }
+
+                } while (brandIsChoosen == false);
+
+                return brand;
+            }
+
+            string setColor()
+            {
+                bool colorIsChoosen = false;
+                do
+                {
+                    Console.WriteLine("Dostępne opcje: ");
+                    Console.WriteLine("1. czarny");
+                    Console.WriteLine("2. biały");
+                    Console.WriteLine("3. szary \n");
+                    Console.Write("Wybierz kolor: ");
+                color = Console.ReadLine();
+                color = color.ToLower();
+                    if (color == "czarny" || color == "biały" || color == "bialy" || color == "szary" ||
+                       color == "1" || color == "2" || color == "3")
+                    {
+                        colorIsChoosen = true;
+                        Console.Clear();
+                    }
+                    else
+                    {
+                        colorIsChoosen = false;
+                        Console.Clear();
+                        Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
+                    }
+
+                } while (colorIsChoosen == false);
+
+                return color;
+            }
         }
+
+        
     }
 }
