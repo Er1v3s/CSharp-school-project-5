@@ -46,10 +46,7 @@ namespace App
 
                     WashingMachine washingMachine = new WashingMachine(brand, color);
 
-                    washingMachine.setWashingTime();
-                    washingMachine.setWashingTemperature();
-                    washingMachine.setWashingRPM();
-
+                    washingMachine.showOptions();
                 }
                 else
                 { 
@@ -80,6 +77,10 @@ namespace App
                     if (brand == "whirpool" || brand == "bosh" || brand == "beko" ||
                         brand == "1" || brand == "2" || brand == "3")
                     {
+                        if (brand == "1") brand = "Whirpool";
+                        else if (brand == "2") brand = "Bosh";
+                        else if (brand == "3") brand = "Beko";
+
                         brandIsChoosen = true;
                         Console.Clear();
                     }
@@ -110,6 +111,10 @@ namespace App
                     if (color == "czarny" || color == "biały" || color == "bialy" || color == "szary" ||
                        color == "1" || color == "2" || color == "3")
                     {
+                        if (color == "1") color = "Czarny";
+                        else if (color == "2" || color == "bialy") color = "Biały";
+                        else if (color == "3") color = "Szary";
+
                         colorIsChoosen = true;
                         Console.Clear();
                     }
