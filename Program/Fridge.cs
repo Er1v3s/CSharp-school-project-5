@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Program
 {
-    internal class Fridge
+    internal class Fridge : WashingMachine
     {
+        public Fridge(string ElementBrand, string ElementColor) : base(ElementBrand, ElementColor)
+        {
+
+        }
     }
 }
