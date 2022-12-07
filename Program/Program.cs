@@ -35,6 +35,8 @@ namespace App
 
                     Fridge fridge = new Fridge(brand, color);
 
+                    fridge.showOptions();
+
                 }
                 else if (userChose == "pralka" || userChose == "p" || userChose == "2")
                 {
