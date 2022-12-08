@@ -15,10 +15,7 @@ namespace Program
         private bool flag = false;
         private int option, id;
         private ArrayList shoppingList = new ArrayList();
-        public Fridge(string ElementBrand, string ElementColor) : base(ElementBrand, ElementColor)
-        {
-            
-        }
+        public Fridge(string ElementBrand, string ElementColor) : base(ElementBrand, ElementColor) { }
 
         protected internal void ShowOptions()
         {
@@ -398,19 +395,6 @@ namespace Program
             Console.WriteLine("Lodówka ustawiona na rozmrażanie \n");
 
             sleep(1000);
-            ShowOptions();
-        }
-
-        private void sleep(int sleepingTime)
-        {
-            Console.WriteLine("Powrót za: ");
-            Thread.Sleep(sleepingTime);
-            Console.WriteLine("3");
-            Thread.Sleep(sleepingTime);
-            Console.WriteLine("2");
-            Thread.Sleep(sleepingTime);
-            Console.WriteLine("1");
-            Thread.Sleep(sleepingTime);
             ShowOptions();
         }
     }

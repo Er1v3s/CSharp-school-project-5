@@ -19,7 +19,7 @@ namespace Program
 
         protected internal void showOptions()
         {
-            bool flag = false;
+            flag = false;
             Console.Clear();
 
             do
@@ -30,9 +30,22 @@ namespace Program
                 Console.WriteLine("3. Delikatne");
                 Console.WriteLine("4. Codzienne");
                 Console.WriteLine("5. Wirowanie");
-                Console.WriteLine("6. Ustawienia manulane \n");
+                Console.WriteLine("6. Ustawienia manulane");
+                Console.WriteLine("7. INFO \n");
 
-                option = Convert.ToInt32(Console.ReadLine());
+                Console.Write("Twój wybór: ");
+                try
+                {
+                    option = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    flag = false;
+                    Console.Clear();
+                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz!");
+
+                }
+
                 if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5 || option == 6)
                 {
                     flag = true;
@@ -41,48 +54,85 @@ namespace Program
                 {
                     flag = false;
                     Console.Clear();
-                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
+                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz!");
                 }
 
+                Console.Write("\n");
                 switch (option)
                 {
                     case 1:
                         setWashingTime(90);
                         setWashingTemperature(40);
                         setWashingRPM(1000);
+
+                        Console.WriteLine("Pralka ustawiona na tryb: Eco");
+                        info(brand, color, washingTime, washingTemperature, washingRPM);
+
+                        sleep(1000);
+                        showOptions();
                         break;
                     case 2:
                         setWashingTime(30);
                         setWashingTemperature(60);
                         setWashingRPM(1500);
+
+                        Console.WriteLine("Pralka ustawiona na tryb: Szybkie");
+                        info(brand, color, washingTime, washingTemperature, washingRPM);
+
+                        sleep(1000);
+                        showOptions();
                         break;
                     case 3:
                         setWashingTime(180);
                         setWashingTemperature(50);
                         setWashingRPM(800);
+
+                        Console.WriteLine("Pralka ustawiona na tryb: Delikatne");
+                        info(brand, color, washingTime, washingTemperature, washingRPM);
+
+                        sleep(1000);
+                        showOptions();
                         break;
                     case 4:
                         setWashingTime(120);
                         setWashingTemperature(60);
                         setWashingRPM(1200);
+
+                        Console.WriteLine("Pralka ustawiona na tryb: Codzienne");
+                        info(brand, color, washingTime, washingTemperature, washingRPM);
+
+                        sleep(1000);
+                        showOptions();
                         break;
                     case 5:
                         setWashingTime(15);
                         setWashingTemperature(30);
                         setWashingRPM(1500);
+
+                        Console.WriteLine("Pralka ustawiona na tryb: Wirowanie");
+                        info(brand, color, washingTime, washingTemperature, washingRPM);
+
+                        sleep(1000);
+                        showOptions();
                         break;
                     case 6:
                         setWashingTime(0);
                         setWashingTemperature(0);
                         setWashingRPM(0);
+
+                        Console.WriteLine("\n");
+                        Console.WriteLine("Pralka ustawiona na tryb: Manualny");
+                        info(brand, color, washingTime, washingTemperature, washingRPM);
+
+                        sleep(1000);
+                        showOptions();
                         break;
-                    default:
-                        flag = false;
+                    case 7:
+                        info(brand, color, washingTime, washingTemperature, washingRPM);
                         break;
                 }
+                option = 0;
             } while (flag == false);
-
-            turnOn(brand, color, washingTime, washingTemperature, washingRPM);
         }
 
         private int setWashingTime(int wTime)
@@ -160,7 +210,7 @@ namespace Program
             return washingRPM;
         }
 
-        private void turnOn(string brand, string color, int wTime, int wTemperature, int wRPM)
+        private void info(string brand, string color, int wTime, int wTemperature, int wRPM)
         {
             Console.Clear();
             Console.WriteLine("### Pralka ### \n");
@@ -170,7 +220,18 @@ namespace Program
             Console.WriteLine("Czas prania: " + wTime);
             Console.WriteLine("Temperatura prania: " + wTemperature);
             Console.WriteLine("Ilość obrotów na minutę: " + wRPM + "\n");
-            Console.WriteLine("PRANIE START!");
+        }
+
+        protected internal void sleep(int sleepingTime)
+        {
+            Console.WriteLine("Powrót za: ");
+            Thread.Sleep(sleepingTime);
+            Console.WriteLine("3");
+            Thread.Sleep(sleepingTime);
+            Console.WriteLine("2");
+            Thread.Sleep(sleepingTime);
+            Console.WriteLine("1");
+            Thread.Sleep(sleepingTime);
         }
     }
 }
