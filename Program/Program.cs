@@ -21,6 +21,7 @@ namespace App
                 Console.WriteLine("1. Lodówka");
                 Console.WriteLine("2. Pralka \n");
 
+                Console.Write("Twój wybór: ");
                 userChose = Console.ReadLine();
                 userChose = userChose.ToLower();
 
@@ -73,26 +74,26 @@ namespace App
                     Console.WriteLine("1. Whirpool");
                     Console.WriteLine("2. Bosh");
                     Console.WriteLine("3. Beko \n");
-
                     Console.Write("Wybierz markę: ");
                     brand = Console.ReadLine();
                     brand = brand.ToLower();
-                    if (brand == "whirpool" || brand == "bosh" || brand == "beko" ||
-                        brand == "1" || brand == "2" || brand == "3")
-                    {
-                        if (brand == "1") brand = "Whirpool";
-                        else if (brand == "2") brand = "Bosh";
-                        else if (brand == "3") brand = "Beko";
 
-                        brandIsChoosen = true;
-                        Console.Clear();
-                    }
-                    else
-                    {
-                        brandIsChoosen = false;
-                        Console.Clear();
-                        Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
-                    }
+                        if (brand == "whirpool" || brand == "bosh" || brand == "beko" ||
+                            brand == "1" || brand == "2" || brand == "3")
+                        {
+                            if (brand == "1") brand = "Whirpool";
+                            else if (brand == "2") brand = "Bosh";
+                            else if (brand == "3") brand = "Beko";
+
+                            brandIsChoosen = true;
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            brandIsChoosen = false;
+                            Console.Clear();
+                            Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
+                        }
 
                 } while (brandIsChoosen == false);
 
@@ -109,24 +110,25 @@ namespace App
                     Console.WriteLine("2. biały");
                     Console.WriteLine("3. szary \n");
                     Console.Write("Wybierz kolor: ");
-                color = Console.ReadLine();
-                color = color.ToLower();
-                    if (color == "czarny" || color == "biały" || color == "bialy" || color == "szary" ||
-                       color == "1" || color == "2" || color == "3")
-                    {
-                        if (color == "1") color = "Czarny";
-                        else if (color == "2" || color == "bialy") color = "Biały";
-                        else if (color == "3") color = "Szary";
+                    color = Console.ReadLine();
+                    color = color.ToLower();
 
-                        colorIsChoosen = true;
-                        Console.Clear();
-                    }
-                    else
-                    {
-                        colorIsChoosen = false;
-                        Console.Clear();
-                        Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
-                    }
+                        if (color == "czarny" || color == "biały" || color == "bialy" || color == "szary" ||
+                           color == "1" || color == "2" || color == "3")
+                        {
+                            if (color == "1") color = "Czarny";
+                            else if (color == "2" || color == "bialy") color = "Biały";
+                            else if (color == "3") color = "Szary";
+
+                            colorIsChoosen = true;
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            colorIsChoosen = false;
+                            Console.Clear();
+                            Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
+                        }
 
                 } while (colorIsChoosen == false);
 
