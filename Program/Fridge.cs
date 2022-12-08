@@ -248,8 +248,6 @@ namespace Program
         private void settings()
         {
             Console.Clear();
-            Console.BackgroundColor = ConsoleColor.Black;
-            Console.ForegroundColor = ConsoleColor.Green;
             do
             {
                 Console.WriteLine("### USTAWIENIA ### \n");
@@ -284,15 +282,15 @@ namespace Program
                 {
                     case 1:
                         Console.Clear();
-                        setCoolingTemperature();
+                        setCoolingTemperature(1);
                         break;
                     case 2:
                         Console.Clear();
-                        Console.WriteLine("2");
+                        setFreezingTemperature(1);
                         break;
                     case 3:
                         Console.Clear();
-                        Console.WriteLine("3");
+                        defrosting();
                         break;
                     case 4:
                         ShowOptions();
@@ -308,47 +306,100 @@ namespace Program
             } while (!flag);
         }
 
-        private void setCoolingTemperature()
+        private void setCoolingTemperature(int coolTemp)
         {
             Console.WriteLine("Temperatura chłodzenia 1/3/5/7 (\u00b0C): ");
 
             Console.Write("Twój wybór: ");
             try
             {
-                option = Convert.ToInt32(Console.ReadLine());
-                if(option == 1 || option == 3 || option == 5 || option == 7)
+                if (coolTemp != 0)
                 {
-                    coolingTemperature = option;
+                    option = Convert.ToInt32(Console.ReadLine());
+                    if (option == 1 || option == 3 || option == 5 || option == 7)
+                    {
+                        coolingTemperature = option;
 
-                    Console.WriteLine("\nUstawiono temerature chłodzenia na: " + coolingTemperature + "\n");
+                        Console.WriteLine("\nUstawiono temerature chłodzenia na: " + coolingTemperature + "\n");
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
+                        setCoolingTemperature(1);
+
+                    }
                 }
                 else
                 {
-                    Console.Clear();
-                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
-                    setCoolingTemperature();
-                    
+                    coolingTemperature = coolTemp;
                 }
+                    
             }
             catch (Exception)
             { 
-                setCoolingTemperature();
+                setCoolingTemperature(1);
             }
 
             option = 0;
-            sleep(1000);
+            if (coolTemp != 0)
+            {
+                sleep(1000);
+            }
         }
 
-        //private int setFreezingTemperature(int freeztemp)
-        //{
+        private void setFreezingTemperature(int freezTemp)
+        {
+            Console.WriteLine("Temperatura mrożenia -14/-16/-18/-20 (\u00b0C): ");
 
-        //}
+            Console.Write("Twój wybór: ");
+            try
+            {
+                if (freezTemp != 0)
+                {
+                    option = Convert.ToInt32(Console.ReadLine());
+                    if (option == -14 || option == -16 || option == -18 || option == -20)
+                    {
+                        freezingTemperature = option;
 
-        //private void defrosting()
-        //{
-        //    setCoolingTemperature();
-        //    setFreezingTemperature();
-        //}
+                        Console.WriteLine("\nUstawiono temerature mrożenia na: " + freezingTemperature + "\n");
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
+                        setFreezingTemperature(1);
+
+                    }
+                }
+                else
+                {
+                    freezingTemperature = freezTemp;
+                }
+            }
+            catch (Exception)
+            {
+                setFreezingTemperature(1);
+            }
+
+            option = 0;
+            if(freezTemp != 0)
+            {
+                sleep(1000);
+            }
+        }
+
+        private void defrosting()
+        {
+            setCoolingTemperature(0);
+            setFreezingTemperature(0);
+
+            Console.Clear();
+            Console.WriteLine("Lodówka ustawiona na rozmrażanie \n");
+
+            sleep(1000);
+            ShowOptions();
+        }
 
         private void sleep(int sleepingTime)
         {
@@ -364,5 +415,3 @@ namespace Program
         }
     }
 }
-
-//Console.WriteLine("Temperatura mrożenia -14/-16/-18/-20 (\u00b0C): ");
