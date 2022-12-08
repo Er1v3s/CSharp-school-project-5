@@ -11,9 +11,9 @@ namespace Program
 {
     internal class Fridge : WashingMachine
     {
-        private int coolingTemperature, freezingTemperature;
+        private int coolingTemperature, freezingTemperature, option, id;
         private bool flag = false;
-        private int option, id;
+        private string line;
         private ArrayList shoppingList = new ArrayList();
         public Fridge(string ElementBrand, string ElementColor) : base(ElementBrand, ElementColor) { }
 
@@ -116,16 +116,22 @@ namespace Program
                     case 1:
                         Console.Clear();
                         Console.WriteLine("Przepis na naleśniki: \n");
+                        fileReader("..\\..\\..\\..\\src\\przepisy\\nalesniki.txt");
+
                         flag = false;
                         break;
                     case 2:
                         Console.Clear();
                         Console.WriteLine("Przepis na kurczaka po chińsku: \n");
+                        fileReader("..\\..\\..\\..\\src\\przepisy\\kurczak.txt");
+
                         flag = false;
                         break;
                     case 3:
                         Console.Clear();
                         Console.WriteLine("Przepis na zapiekanke ziemniaczną: \n");
+                        fileReader("..\\..\\..\\..\\src\\przepisy\\zapiekanka.txt");
+
                         flag = false;
                         break;
                     case 4:
@@ -396,6 +402,25 @@ namespace Program
 
             sleep(1000);
             ShowOptions();
+        }
+
+        private void fileReader(string filepath)
+        {
+            try
+            {
+                StreamReader sr = new StreamReader(filepath);
+                line = sr.ReadLine();
+                while (line != null)
+                {
+                    Console.WriteLine($"{line}");
+                    line = sr.ReadLine();
+                }
+                sr.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Jeżeli nie widzisz przepisu, zgłoś to do serwisu!");
+            }
         }
     }
 }
