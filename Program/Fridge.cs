@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,7 +11,7 @@ namespace Program
 {
     internal class Fridge : WashingMachine
     {
-        private string coolingTemperature, freezingTemperature;
+        private int coolingTemperature, freezingTemperature;
         private bool flag = false;
         private int option, id;
         private ArrayList shoppingList = new ArrayList();
@@ -19,7 +20,7 @@ namespace Program
             
         }
 
-        protected internal void showOptions ()
+        protected internal void ShowOptions()
         {
             Console.Clear();
             do
@@ -77,67 +78,6 @@ namespace Program
             option = 0;
         }
 
-        private void settings()
-        {
-            Console.Clear();
-            do
-            {
-                Console.WriteLine("### USTAWIENIA ### \n");
-                Console.WriteLine("1. Temperatura chłodzenia");
-                Console.WriteLine("2. Temperatura mrożenia");
-                Console.WriteLine("3. Rozmrażanie");
-                Console.WriteLine("4. Powrót");
-                Console.WriteLine("5. Wyjdź \n");
-
-                Console.Write("Twój wybór: ");
-                try
-                {
-                    option = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    flag = false;
-                    Console.Clear();
-                }
-
-                if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5)
-                {
-                    flag = true;
-                }
-                else
-                {
-                    flag = false;
-                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
-                }
-
-                switch (option)
-                {
-                    case 1:
-                        Console.Clear();
-                        Console.WriteLine("1");
-                        break;
-                    case 2:
-                        Console.Clear();
-                        Console.WriteLine("2");
-                        break;
-                    case 3:
-                        Console.Clear();
-                        Console.WriteLine("3");
-                        break;
-                    case 4:
-                        showOptions();
-                        break;
-                    case 5:
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        flag = false;
-                        break;
-                }
-
-            } while (!flag);
-        }
-
         private void showCookbook()
         {
             Console.Clear();
@@ -192,14 +132,14 @@ namespace Program
                         flag = false;
                         break;
                     case 4:
-                        showOptions();
+                        ShowOptions();
                         break;
                     case 5:
                         Environment.Exit(0);
                         break;
                 }
             } while (!flag);
-            
+
             option = 0;
             flag = false;
         }
@@ -210,7 +150,7 @@ namespace Program
 
             Console.Clear();
             do
-            { 
+            {
                 Console.WriteLine("1. Dodaj artykół");
                 Console.WriteLine("2. Usuń artykół");
                 Console.WriteLine("3. Wyczyść listę");
@@ -293,7 +233,7 @@ namespace Program
                         flag = false;
                         break;
                     case 4:
-                        showOptions();
+                        ShowOptions();
                         break;
                     case 5:
                         Environment.Exit(0);
@@ -305,15 +245,99 @@ namespace Program
             option = 0;
         }
 
-        //private int setCoolingTemperature(int coolingTemp)
-        //{ 
-        //    return coolingTemperature;
-        //}
+        private void settings()
+        {
+            Console.Clear();
+            Console.BackgroundColor = ConsoleColor.Black;
+            Console.ForegroundColor = ConsoleColor.Green;
+            do
+            {
+                Console.WriteLine("### USTAWIENIA ### \n");
+                Console.WriteLine("1. Temperatura chłodzenia");
+                Console.WriteLine("2. Temperatura mrożenia");
+                Console.WriteLine("3. Rozmrażanie");
+                Console.WriteLine("4. Powrót");
+                Console.WriteLine("5. Wyjdź \n");
 
-        //private int setCoolingTemperature(int coolTemp)
-        //{
+                Console.Write("Twój wybór: ");
+                try
+                {
+                    option = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    flag = false;
+                    Console.Clear();
+                }
 
-        //}
+                if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5)
+                {
+                    flag = true;
+                }
+                else
+                {
+                    flag = false;
+                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
+                }
+
+                switch (option)
+                {
+                    case 1:
+                        Console.Clear();
+                        setCoolingTemperature();
+                        break;
+                    case 2:
+                        Console.Clear();
+                        Console.WriteLine("2");
+                        break;
+                    case 3:
+                        Console.Clear();
+                        Console.WriteLine("3");
+                        break;
+                    case 4:
+                        ShowOptions();
+                        break;
+                    case 5:
+                        Environment.Exit(0);
+                        break;
+                    default:
+                        flag = false;
+                        break;
+                }
+
+            } while (!flag);
+        }
+
+        private void setCoolingTemperature()
+        {
+            Console.WriteLine("Temperatura chłodzenia 1/3/5/7 (\u00b0C): ");
+
+            Console.Write("Twój wybór: ");
+            try
+            {
+                option = Convert.ToInt32(Console.ReadLine());
+                if(option == 1 || option == 3 || option == 5 || option == 7)
+                {
+                    coolingTemperature = option;
+
+                    Console.WriteLine("\nUstawiono temerature chłodzenia na: " + coolingTemperature + "\n");
+                }
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
+                    setCoolingTemperature();
+                    
+                }
+            }
+            catch (Exception)
+            { 
+                setCoolingTemperature();
+            }
+
+            option = 0;
+            sleep(1000);
+        }
 
         //private int setFreezingTemperature(int freeztemp)
         //{
@@ -325,9 +349,20 @@ namespace Program
         //    setCoolingTemperature();
         //    setFreezingTemperature();
         //}
+
+        private void sleep(int sleepingTime)
+        {
+            Console.WriteLine("Powrót za: ");
+            Thread.Sleep(sleepingTime);
+            Console.WriteLine("3");
+            Thread.Sleep(sleepingTime);
+            Console.WriteLine("2");
+            Thread.Sleep(sleepingTime);
+            Console.WriteLine("1");
+            Thread.Sleep(sleepingTime);
+            ShowOptions();
+        }
     }
 }
 
-
-//Console.WriteLine("Temperatura chłodzenia 1/3/5/7 (\u00b0C): ");
 //Console.WriteLine("Temperatura mrożenia -14/-16/-18/-20 (\u00b0C): ");
