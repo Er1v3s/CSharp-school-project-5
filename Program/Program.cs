@@ -17,8 +17,8 @@ namespace App
 
             do
             {
-                Console.WriteLine("Wybierz przedmiot, który Cię interesuje: ");
-                Console.WriteLine("1. Lodowka");
+                Console.WriteLine("Wybierz przedmiot, który Cię interesuje: \n");
+                Console.WriteLine("1. Lodówka");
                 Console.WriteLine("2. Pralka \n");
 
                 userChose = Console.ReadLine();
@@ -69,7 +69,7 @@ namespace App
                 bool brandIsChoosen = false;
                 do
                 {
-                    Console.WriteLine("Dostępne opcje: ");
+                    Console.WriteLine("Dostępne opcje: \n");
                     Console.WriteLine("1. Whirpool");
                     Console.WriteLine("2. Bosh");
                     Console.WriteLine("3. Beko \n");
@@ -104,7 +104,7 @@ namespace App
                 bool colorIsChoosen = false;
                 do
                 {
-                    Console.WriteLine("Dostępne opcje: ");
+                    Console.WriteLine("Dostępne opcje: \n");
                     Console.WriteLine("1. czarny");
                     Console.WriteLine("2. biały");
                     Console.WriteLine("3. szary \n");
