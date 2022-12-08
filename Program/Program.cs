@@ -7,7 +7,7 @@ namespace App
 {
     internal class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             string userChose;
             bool flag = false;
@@ -60,10 +60,7 @@ namespace App
 
             } while(flag == false);
 
-
-
             Console.ReadLine();
-
 
             string setBrand()
             {

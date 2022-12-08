@@ -9,6 +9,7 @@ namespace Program
 {
     public class WashingMachine
     {
+        bool flag;
         private string brand, color;
         private int washingTime, washingTemperature, washingRPM, option;
         public WashingMachine(string ElementBrand, string ElementColor) {
@@ -92,7 +93,6 @@ namespace Program
             }
             else
             {
-                bool flag = false;
                 do
                 {
                     Console.Write("Czas prania(min): ");
@@ -106,6 +106,7 @@ namespace Program
                 } while (false);
             }
 
+            flag = false;
             return washingTime;
         }
 
@@ -117,7 +118,6 @@ namespace Program
             }
             else
             {
-                bool flag = false;
                 do
                 {
                     Console.Write("temperatura(\u00b0C): ");
@@ -131,6 +131,7 @@ namespace Program
                 } while (false);
             }
 
+            flag = false;
             return washingTemperature;
         }
 
@@ -142,7 +143,6 @@ namespace Program
             }
             else
             {
-                bool flag = false;
                 do
                 {
                     Console.Write("Obroty na minute: ");
@@ -156,6 +156,7 @@ namespace Program
                 } while (false);
             }
 
+            flag = false;
             return washingRPM;
         }
 
