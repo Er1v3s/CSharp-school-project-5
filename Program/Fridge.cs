@@ -9,13 +9,18 @@ using System.Threading.Tasks;
 
 namespace Program
 {
-    internal class Fridge : WashingMachine
+    internal class Fridge
     {
-        private int coolingTemperature, freezingTemperature, option, id;
+        private int coolingTemperature, freezingTemperature, option, id, doors;
         private bool flag = false;
         private string line;
         private ArrayList shoppingList = new ArrayList();
-        public Fridge(string ElementBrand, string ElementColor) : base(ElementBrand, ElementColor) { }
+        public Fridge() { }
+
+        public Fridge(int numOfDoors)
+        {
+            doors = numOfDoors;
+        }
 
         protected internal void ShowOptions()
         {
@@ -78,174 +83,191 @@ namespace Program
         private void showCookbook()
         {
             Console.Clear();
-            do
+
+            if(doors == 1)
             {
-                Console.WriteLine("### KSIĄŻKA KUCHARSKA ### \n");
-                Console.WriteLine("1. Naleśniki");
-                Console.WriteLine("2. Kurczak po chińsku");
-                Console.WriteLine("3. Zapiekanka ziemniaczana");
-                Console.WriteLine("4. Powrót");
-                Console.WriteLine("5. Wyjdź");
-
-                Console.WriteLine("\n");
-                Console.Write("Twój wybór: ");
-
-                try
+                do
                 {
-                    option = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    flag = false;
-                    Console.Clear();
-                }
+                    Console.WriteLine("### KSIĄŻKA KUCHARSKA ### \n");
+                    Console.WriteLine("1. Naleśniki");
+                    Console.WriteLine("2. Kurczak po chińsku");
+                    Console.WriteLine("3. Zapiekanka ziemniaczana");
+                    Console.WriteLine("4. Powrót");
+                    Console.WriteLine("5. Wyjdź");
 
-                if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5)
-                {
-                    flag = true;
-                }
-                else
-                {
-                    flag = false;
-                    Console.Clear();
-                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
-                }
+                    Console.WriteLine("\n");
+                    Console.Write("Twój wybór: ");
 
-                switch (option)
-                {
-                    case 1:
-                        Console.Clear();
-                        Console.WriteLine("Przepis na naleśniki: \n");
-                        fileReader("..\\..\\..\\..\\src\\przepisy\\nalesniki.txt");
-
+                    try
+                    {
+                        option = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (Exception)
+                    {
                         flag = false;
-                        break;
-                    case 2:
                         Console.Clear();
-                        Console.WriteLine("Przepis na kurczaka po chińsku: \n");
-                        fileReader("..\\..\\..\\..\\src\\przepisy\\kurczak.txt");
+                    }
 
+                    if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5)
+                    {
+                        flag = true;
+                    }
+                    else
+                    {
                         flag = false;
-                        break;
-                    case 3:
                         Console.Clear();
-                        Console.WriteLine("Przepis na zapiekanke ziemniaczną: \n");
-                        fileReader("..\\..\\..\\..\\src\\przepisy\\zapiekanka.txt");
+                        Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
+                    }
 
-                        flag = false;
-                        break;
-                    case 4:
-                        ShowOptions();
-                        break;
-                    case 5:
-                        Environment.Exit(0);
-                        break;
-                }
-            } while (!flag);
+                    switch (option)
+                    {
+                        case 1:
+                            Console.Clear();
+                            Console.WriteLine("Przepis na naleśniki: \n");
+                            fileReader("..\\..\\..\\..\\src\\przepisy\\nalesniki.txt");
 
-            option = 0;
-            flag = false;
+                            flag = false;
+                            break;
+                        case 2:
+                            Console.Clear();
+                            Console.WriteLine("Przepis na kurczaka po chińsku: \n");
+                            fileReader("..\\..\\..\\..\\src\\przepisy\\kurczak.txt");
+
+                            flag = false;
+                            break;
+                        case 3:
+                            Console.Clear();
+                            Console.WriteLine("Przepis na zapiekanke ziemniaczną: \n");
+                            fileReader("..\\..\\..\\..\\src\\przepisy\\zapiekanka.txt");
+
+                            flag = false;
+                            break;
+                        case 4:
+                            ShowOptions();
+                            break;
+                        case 5:
+                            Environment.Exit(0);
+                            break;
+                    }
+                } while (!flag);
+
+                option = 0;
+                flag = false;
+            }
+            else
+            {
+                Console.WriteLine("Niestety tylko lodówki dwódrzwiowe są wyposażone w tą opcję \n");
+                sleep(1000);
+                ShowOptions();
+            }
         }
 
         private void showShoppingList()
         {
-            string article;
-
             Console.Clear();
-            do
+            if (doors == 1)
             {
-                Console.WriteLine("1. Dodaj artykół");
-                Console.WriteLine("2. Usuń artykół");
-                Console.WriteLine("3. Wyczyść listę");
-                Console.WriteLine("4. Powrót");
-                Console.WriteLine("5. Wyjdź \n");
-
-                Console.WriteLine("### Lista zakupów ### \n");
-
-                int i = 1;
-                foreach (string item in shoppingList)
+                string article;
+                do
                 {
-                    Console.WriteLine(i + ". " + item);
-                    i++;
-                }
+                    Console.WriteLine("1. Dodaj artykół");
+                    Console.WriteLine("2. Usuń artykół");
+                    Console.WriteLine("3. Wyczyść listę");
+                    Console.WriteLine("4. Powrót");
+                    Console.WriteLine("5. Wyjdź \n");
 
-                Console.WriteLine("\n#######################");
+                    Console.WriteLine("### Lista zakupów ### \n");
 
-                Console.WriteLine("\n");
-                Console.Write("Twój wybór: ");
+                    int i = 1;
+                    foreach (string item in shoppingList)
+                    {
+                        Console.WriteLine(i + ". " + item);
+                        i++;
+                    }
 
-                try
-                {
-                    option = Convert.ToInt32(Console.ReadLine());
-                }
-                catch (Exception)
-                {
-                    flag = false;
-                    Console.Clear();
-                }
+                    Console.WriteLine("\n#######################");
 
-                if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5)
-                {
-                    flag = true;
-                }
-                else
-                {
-                    flag = false;
-                    Console.Clear();
-                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
-                }
+                    Console.WriteLine("\n");
+                    Console.Write("Twój wybór: ");
 
-                switch (option)
-                {
-                    case 1:
-                        Console.Write("nazwa artykułu: ");
-                        article = Console.ReadLine();
-                        shoppingList.Add(article);
-                        Console.Clear();
+                    try
+                    {
+                        option = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (Exception)
+                    {
                         flag = false;
-                        break;
-                    case 2:
-                        if (shoppingList.Count > 0)
-                        {
-                            Console.Write("numer artykułu: ");
-                            try
-                            {
-                                id = Convert.ToInt32(Console.ReadLine());
-                                shoppingList.Reverse();
-                                shoppingList.RemoveAt(shoppingList.Count - id);
-                                shoppingList.Reverse();
-                                Console.Clear();
-                            }
-                            catch (Exception)
-                            {
-                                flag = false;
-                                Console.Clear();
-                                Console.WriteLine("Na liście nie ma takiego artykułu! \n");
-                            }
-                        }
-                        else
-                        {
+                        Console.Clear();
+                    }
+
+                    if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5)
+                    {
+                        flag = true;
+                    }
+                    else
+                    {
+                        flag = false;
+                        Console.Clear();
+                        Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
+                    }
+
+                    switch (option)
+                    {
+                        case 1:
+                            Console.Write("nazwa artykułu: ");
+                            article = Console.ReadLine();
+                            shoppingList.Add(article);
                             Console.Clear();
-                            Console.WriteLine("Na liśnie jeszcze nic nie ma! \n");
-                        }
-                        flag = false;
-                        break;
-                    case 3:
-                        shoppingList.Clear();
-                        Console.Clear();
-                        flag = false;
-                        break;
-                    case 4:
-                        ShowOptions();
-                        break;
-                    case 5:
-                        Environment.Exit(0);
-                        break;
-                }
+                            flag = false;
+                            break;
+                        case 2:
+                            if (shoppingList.Count > 0)
+                            {
+                                Console.Write("numer artykułu: ");
+                                try
+                                {
+                                    id = Convert.ToInt32(Console.ReadLine());
+                                    shoppingList.Reverse();
+                                    shoppingList.RemoveAt(shoppingList.Count - id);
+                                    shoppingList.Reverse();
+                                    Console.Clear();
+                                }
+                                catch (Exception)
+                                {
+                                    flag = false;
+                                    Console.Clear();
+                                    Console.WriteLine("Na liście nie ma takiego artykułu! \n");
+                                }
+                            }
+                            else
+                            {
+                                Console.Clear();
+                                Console.WriteLine("Na liśnie jeszcze nic nie ma! \n");
+                            }
+                            flag = false;
+                            break;
+                        case 3:
+                            shoppingList.Clear();
+                            Console.Clear();
+                            flag = false;
+                            break;
+                        case 4:
+                            ShowOptions();
+                            break;
+                        case 5:
+                            Environment.Exit(0);
+                            break;
+                    }
+                    option = 0;
+                } while (!flag);
+                flag = false;
                 option = 0;
-            } while (!flag);
-            flag = false;
-            option = 0;
+            } else
+            {
+                Console.WriteLine("Niestety tylko lodówki dwódrzwiowe są wyposażone w tą opcję \n");
+                sleep(1000);
+                ShowOptions();
+            }
         }
 
         private void settings()
@@ -348,6 +370,7 @@ namespace Program
             if (coolTemp != 0)
             {
                 sleep(1000);
+                ShowOptions();
             }
         }
 
@@ -389,6 +412,7 @@ namespace Program
             if(freezTemp != 0)
             {
                 sleep(1000);
+                ShowOptions();
             }
         }
 
@@ -421,6 +445,17 @@ namespace Program
             {
                 Console.WriteLine("Jeżeli nie widzisz przepisu, zgłoś to do serwisu!");
             }
+        }
+        private void sleep(int sleepingTime)
+        {
+            Console.WriteLine("Powrót za: ");
+            Thread.Sleep(sleepingTime);
+            Console.WriteLine("3");
+            Thread.Sleep(sleepingTime);
+            Console.WriteLine("2");
+            Thread.Sleep(sleepingTime);
+            Console.WriteLine("1");
+            Thread.Sleep(sleepingTime);
         }
     }
 }

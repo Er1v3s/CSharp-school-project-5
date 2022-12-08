@@ -1,4 +1,5 @@
-﻿using Program;
+﻿using Microsoft.VisualBasic.FileIO;
+using Program;
 using System;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
@@ -10,6 +11,7 @@ namespace App
         static void Main()
         {
             string userChose;
+            int option = -1;
             bool flag = false;
 
             string brand;
@@ -32,13 +34,19 @@ namespace App
                     flag = true;
                     Console.WriteLine("Wybrano Lodówkę \n");
 
-                    setBrand();
-                    setColor();
+                    option = setNumOfDoors();
 
-                    Fridge fridge = new Fridge(brand, color);
-
-                    fridge.ShowOptions();
-
+                    if (option == 1)
+                    {
+                        Fridge fridge = new Fridge();
+                        fridge.ShowOptions();
+                    }
+                    else if(option == 2)
+                    {
+                        Fridge fridge = new Fridge(2);
+                        fridge.ShowOptions();
+                    }
+                    option = -1;
                 }
                 else if (userChose == "pralka" || userChose == "p" || userChose == "2")
                 {
@@ -48,9 +56,17 @@ namespace App
                     setBrand();
                     setColor();
 
-                    WashingMachine washingMachine = new WashingMachine(brand, color);
+                    WashingMachine washingMachine = new WashingMachine("Wzór", brand, color);
+                    WashingMachine washingMachine2 = new WashingMachine(washingMachine);
 
-                    washingMachine.showOptions();
+                    washingMachine2.name = "Kopia";
+
+                    Console.WriteLine(washingMachine.details());
+                    Console.WriteLine(washingMachine2.details());
+
+                    Thread.Sleep(5000);
+
+                    washingMachine2.showOptions();
                 }
                 else
                 { 
@@ -130,6 +146,37 @@ namespace App
                 } while (colorIsChoosen == false);
 
                 return color;
+            }
+
+            int setNumOfDoors()
+            {
+                do
+                {
+                    Console.WriteLine("Ilu drzwiowa ma być lodówka? 1 czy 2 \n");
+                    Console.Write("Twój wybór: ");
+                    try
+                    {
+                        option = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz!");
+                    }
+
+                    if (option == 1 || option == 2)
+                    {
+                        flag = true;
+                    }
+                    else
+                    {
+                        flag = false;
+                        Console.Clear();
+                        Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz!");
+                    }
+
+                } while (flag == false);
+                
+                return option;
             }
         }
     }

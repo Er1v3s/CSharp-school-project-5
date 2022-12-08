@@ -10,12 +10,24 @@ namespace Program
     public class WashingMachine
     {
         bool flag;
-        private string brand, color;
         private int washingTime, washingTemperature, washingRPM, option;
-        public WashingMachine(string ElementBrand, string ElementColor) {
-            brand = ElementBrand;
-            color = ElementColor;
+        
+        public WashingMachine(WashingMachine previous)
+        {
+            brand = previous.brand;
+            color = previous.color;
         }
+        public WashingMachine(string elementName ,string elementBrand, string elementColor)
+        {
+            name = elementName;
+            brand = elementBrand;
+            color = elementColor;
+        }
+
+        public string name { get; set; }
+        public string brand { get; set; }
+        public string color { get; set; }
+
 
         protected internal void showOptions()
         {
@@ -222,7 +234,7 @@ namespace Program
             Console.WriteLine("Ilość obrotów na minutę: " + wRPM + "\n");
         }
 
-        protected internal void sleep(int sleepingTime)
+        private void sleep(int sleepingTime)
         {
             Console.WriteLine("Powrót za: ");
             Thread.Sleep(sleepingTime);
@@ -232,6 +244,11 @@ namespace Program
             Thread.Sleep(sleepingTime);
             Console.WriteLine("1");
             Thread.Sleep(sleepingTime);
+        }
+
+        public string details()
+        {
+            return "To jest " + name + " pralki " + brand + " " + color;
         }
     }
 }
