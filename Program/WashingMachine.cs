@@ -23,7 +23,7 @@ namespace Program
 
             do
             {
-                Console.WriteLine("Wybierz program prania: ");
+                Console.WriteLine("Wybierz program prania: \n");
                 Console.WriteLine("1. Eco");
                 Console.WriteLine("2. Szybkie");
                 Console.WriteLine("3. Delikatne");
