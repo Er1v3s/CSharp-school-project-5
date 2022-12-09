@@ -84,7 +84,7 @@ namespace Program
         {
             Console.Clear();
 
-            if(doors == 1)
+            if(doors == 2)
             {
                 do
                 {
@@ -165,7 +165,7 @@ namespace Program
         private void showShoppingList()
         {
             Console.Clear();
-            if (doors == 1)
+            if (doors == 2)
             {
                 string article;
                 do
@@ -441,7 +441,7 @@ namespace Program
                 }
                 sr.Close();
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 Console.WriteLine("Jeżeli nie widzisz przepisu, zgłoś to do serwisu!");
             }

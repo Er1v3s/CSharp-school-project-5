@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,23 +13,28 @@ namespace Program
     {
         bool flag;
         private int washingTime, washingTemperature, washingRPM, option;
-        
-        public WashingMachine(WashingMachine previous)
-        {
-            brand = previous.brand;
-            color = previous.color;
-        }
-        public WashingMachine(string elementName ,string elementBrand, string elementColor)
-        {
-            name = elementName;
-            brand = elementBrand;
-            color = elementColor;
-        }
 
+        // Pobiera i ustawia wartość atrybutu
         public string name { get; set; }
         public string brand { get; set; }
         public string color { get; set; }
 
+        //Pusty constructor
+        public WashingMachine() { }
+
+        public WashingMachine(string nameElement, string brandElement, string colorElement)
+        {
+            name = nameElement;
+            brand = brandElement;
+            color = colorElement;
+        }
+
+        public WashingMachine(string elementName, WashingMachine copy)
+        {
+            name = elementName;
+            brand = copy.brand;
+            color = copy.color;
+        }
 
         protected internal void showOptions()
         {
@@ -221,7 +228,6 @@ namespace Program
             flag = false;
             return washingRPM;
         }
-
         private void info(string brand, string color, int wTime, int wTemperature, int wRPM)
         {
             Console.Clear();
@@ -248,7 +254,7 @@ namespace Program
 
         public string details()
         {
-            return "To jest " + name + " pralki " + brand + " " + color;
+            return "To jest " + name + " " + brand + " " + color;
         }
     }
 }
