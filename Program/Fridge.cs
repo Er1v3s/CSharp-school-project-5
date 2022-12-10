@@ -155,21 +155,21 @@ namespace Program
                         case 1:
                             Console.Clear();
                             Console.WriteLine("Przepis na naleśniki: \n");
-                            FileReader("xd");
+                            FileReader("/Users/filip_statkiewicz/Programing Projects/C#/zadanie-5/CSharp-school-project-5/src/przepisy/nalesniki.txt");
 
                             flag = false;
                             break;
                         case 2:
                             Console.Clear();
                             Console.WriteLine("Przepis na kurczaka po chińsku: \n");
-                            FileReader("~\\..\\..\\..\\..\\src\\przepisy\\kurczak.txt");
+                            FileReader("/Users/filip_statkiewicz/Programing Projects/C#/zadanie-5/CSharp-school-project-5/src/przepisy/kurczak.txt");
 
                             flag = false;
                             break;
                         case 3:
                             Console.Clear();
                             Console.WriteLine("Przepis na zapiekanke ziemniaczną: \n");
-                            FileReader("..\\..\\..\\..\\src\\przepisy\\zapiekanka.txt");
+                            FileReader("/Users/filip_statkiewicz/Programing Projects/C#/zadanie-5/CSharp-school-project-5/src/przepisy/.txt");
 
                             flag = false;
                             break;
@@ -338,11 +338,11 @@ namespace Program
                 {
                     case 1:
                         Console.Clear();
-                        SetCoolingTemperature(1);
+                        SetCoolingTemperature(1, ref coolingTemperature);
                         break;
                     case 2:
                         Console.Clear();
-                        SetFreezingTemperature(1);
+                        SetFreezingTemperature(1 ref freezingTemperature);
                         break;
                     case 3:
                         Console.Clear();
@@ -362,7 +362,7 @@ namespace Program
             } while (!flag);
         }
 
-        private void SetCoolingTemperature(int coolTemp)
+        private void SetCoolingTemperature(int coolTemp, ref int coolingTemperature)
         {
             Console.WriteLine("Temperatura chłodzenia 1/3/5/7 (\u00b0C): ");
 
@@ -382,7 +382,7 @@ namespace Program
                     {
                         Console.Clear();
                         Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
-                        SetCoolingTemperature(1);
+                        SetCoolingTemperature(1, ref coolingTemperature);
 
                     }
                 }
@@ -394,7 +394,7 @@ namespace Program
             }
             catch (Exception)
             { 
-                SetCoolingTemperature(1);
+                SetCoolingTemperature(1, ref coolingTemperature);
             }
 
             option = 0;
@@ -405,7 +405,7 @@ namespace Program
             }
         }
 
-        private void SetFreezingTemperature(int freezTemp)
+        private void SetFreezingTemperature(int freezTemp, ref int freezingTemperature)
         {
             Console.WriteLine("Temperatura mrożenia -14/-16/-18/-20 (\u00b0C): ");
 
@@ -425,7 +425,7 @@ namespace Program
                     {
                         Console.Clear();
                         Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
-                        SetFreezingTemperature(1);
+                        SetFreezingTemperature(1, ref freezingTemperature);
 
                     }
                 }
