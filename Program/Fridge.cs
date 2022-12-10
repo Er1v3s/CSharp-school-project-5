@@ -342,7 +342,7 @@ namespace Program
                         break;
                     case 2:
                         Console.Clear();
-                        SetFreezingTemperature(1 ref freezingTemperature);
+                        SetFreezingTemperature(1, ref freezingTemperature);
                         break;
                     case 3:
                         Console.Clear();
@@ -436,7 +436,7 @@ namespace Program
             }
             catch (Exception)
             {
-                SetFreezingTemperature(1);
+                SetFreezingTemperature(1, ref freezingTemperature);
             }
 
             option = 0;
@@ -449,8 +449,8 @@ namespace Program
 
         private void Defrosting()
         {
-            SetCoolingTemperature(0);
-            SetFreezingTemperature(0);
+            SetCoolingTemperature(0, ref coolingTemperature);
+            SetFreezingTemperature(0, ref freezingTemperature);
 
             Console.Clear();
             Console.WriteLine("Lodówka ustawiona na rozmrażanie \n");

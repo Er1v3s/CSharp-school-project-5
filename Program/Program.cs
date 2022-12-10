@@ -75,6 +75,7 @@ namespace App
                                     WashingMachine washingMachine = new();
                                     washingMachine = washingMachine.CreateNewWashingMachine();
                                     washingMachine.CreateMessage();
+                                    Thread.Sleep(5000);
                                     washingMachine.ShowOptions();
                                 }
                                 else if(option == 2)
@@ -82,6 +83,7 @@ namespace App
                                     WashingMachine washingMachine = new();
                                     washingMachine = washingMachine.CreateNewWashingMachine_usingConstructor(brand, color);
                                     washingMachine.CreateMessage();
+                                    Thread.Sleep(5000);
                                     washingMachine.ShowOptions();
                                 }
                                 else if(option == 3)
@@ -89,6 +91,7 @@ namespace App
                                     WashingMachine washingMachine = new();
                                     washingMachine = washingMachine.CreateNewWashingMachine_usingCopy(washingMachine.CreateNewWashingMachine());
                                     washingMachine.CreateMessage();
+                                    Thread.Sleep(5000);
                                     washingMachine.ShowOptions();
                                 }
                             }
