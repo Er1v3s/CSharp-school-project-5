@@ -22,13 +22,14 @@ namespace Program
         //Pusty constructor
         public WashingMachine() { }
 
+        // Konstruktor z parametrami
         public WashingMachine(string nameElement, string brandElement, string colorElement)
         {
             name = nameElement;
             brand = brandElement;
             color = colorElement;
         }
-
+        // Konstruktor który ma unikalny parametr a reszte kopiuje z innego obiektu
         public WashingMachine(string elementName, WashingMachine copy)
         {
             name = elementName;
