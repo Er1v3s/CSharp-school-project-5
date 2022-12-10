@@ -15,9 +15,9 @@ namespace Program
         private int washingTime, washingTemperature, washingRPM, option;
 
         // Pobiera i ustawia wartość atrybutu
-        public string name { get; set; }
-        public string brand { get; set; }
-        public string color { get; set; }
+        public string Name { get; set; }
+        public string Brand { get; set; }
+        public string Color { get; set; }
 
         //Pusty constructor
         public WashingMachine() { }
@@ -25,19 +25,119 @@ namespace Program
         // Konstruktor z parametrami
         public WashingMachine(string nameElement, string brandElement, string colorElement)
         {
-            name = nameElement;
-            brand = brandElement;
-            color = colorElement;
+            Name = nameElement;
+            Brand = brandElement;
+            Color = colorElement;
         }
+
         // Konstruktor który ma unikalny parametr a reszte kopiuje z innego obiektu
         public WashingMachine(string elementName, WashingMachine copy)
         {
-            name = elementName;
-            brand = copy.brand;
-            color = copy.color;
+            Name = elementName;
+            Brand = copy.Brand;
+            Color = copy.Color;
         }
 
-        protected internal void showOptions()
+        public WashingMachine CreateNewWashingMachine()
+        {
+            bool sflag = false;
+            Console.Clear();
+            WashingMachine washingMachine1 = new();
+            do
+            {
+                try
+                {
+                    washingMachine1.Name = "Pralka stworzona za pomocą get i set ";
+                    Console.Write("Wybierz markę: ");
+                    washingMachine1.Brand = Console.ReadLine();
+                    Console.Write("Wybierz kolor: ");
+                    washingMachine1.Color = Console.ReadLine();
+
+                    if (washingMachine1.Name != string.Empty
+                        && washingMachine1.Brand != string.Empty
+                        && washingMachine1.Color != string.Empty)
+                    {
+                        if (!(int.TryParse(washingMachine1.Name, out int value))
+                            && !(int.TryParse(washingMachine1.Brand, out int value2))
+                            && !(int.TryParse(washingMachine1.Color, out int value3)))
+                        {
+                            sflag = true;
+                            Console.Clear();
+                        }
+                        else
+                        {
+                            throw new Exception("Wartość nie może być typu inteeger! Spróbuj ponownie \n");
+                        }
+                    }
+                    else
+                    {
+                        throw new Exception("Wartości nie mogą być puste! Spróbuj ponownie\n");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.Clear();
+                    Console.WriteLine(e.Message);
+                }
+            } while (sflag == false);
+
+            Console.Clear();
+            return washingMachine1;
+        }
+
+        // Argument przekazywany przez wartość
+        public WashingMachine CreateNewWashingMachine_usingConstructor(string brand, string color)
+        {
+            bool sflag = false;
+            int option;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Bosh");
+                Console.WriteLine("2. Whirpool");
+                Console.WriteLine("3. Beko");
+                Console.Write("Wybierz markę: ");
+
+                option = Convert.ToInt32(Console.ReadLine());
+
+                if (option == 1 || option == 2 || option == 3) sflag = true;
+                if (option == 1) brand = "Bosh";
+                else if (option == 2) brand = "Whirpool";
+                else if (option == 3) brand = "Beko";
+                else Console.WriteLine("Wprowadzono niepoprawną wartość\n");
+
+            } while (sflag == false);
+
+            sflag = false;
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("1. Biała");
+                Console.WriteLine("2. Czarna");
+                Console.WriteLine("3. Srebrna");
+                Console.Write("Wybierz kolor: ");
+                option = Convert.ToInt32(Console.ReadLine());
+
+                if (option == 1 || option == 2 || option == 3) sflag = true;
+                if (option == 1) color = "Biała";
+                else if (option == 2) color = "Czarna";
+                else if (option == 3) color = "Srebrna";
+                else Console.WriteLine("Wprowadzono niepoprawną wartość\n");
+
+            } while (sflag == false);
+
+            Console.Clear();
+            WashingMachine washingMachine2 = new("Pralka stworzona za pomocą konstruktora ", brand, color);
+            return washingMachine2;
+        }
+
+        public WashingMachine CreateNewWashingMachine_usingCopy(WashingMachine copy)
+        {
+            WashingMachine washingMachine3 = new("Pralka stworzona za pomocą kopii ", copy);
+            return washingMachine3;
+        }
+
+        protected internal void ShowOptions()
         {
             flag = false;
             Console.Clear();
@@ -81,81 +181,81 @@ namespace Program
                 switch (option)
                 {
                     case 1:
-                        setWashingTime(90);
-                        setWashingTemperature(40);
-                        setWashingRPM(1000);
+                        SetWashingTime(90);
+                        SetWashingTemperature(40);
+                        SetWashingRPM(1000);
 
                         Console.WriteLine("Pralka ustawiona na tryb: Eco");
-                        info(brand, color, washingTime, washingTemperature, washingRPM);
+                        Info(Brand, Color, washingTime, washingTemperature, washingRPM);
 
-                        sleep(1000);
-                        showOptions();
+                        Sleep(1000);
+                        ShowOptions();
                         break;
                     case 2:
-                        setWashingTime(30);
-                        setWashingTemperature(60);
-                        setWashingRPM(1500);
+                        SetWashingTime(30);
+                        SetWashingTemperature(60);
+                        SetWashingRPM(1500);
 
                         Console.WriteLine("Pralka ustawiona na tryb: Szybkie");
-                        info(brand, color, washingTime, washingTemperature, washingRPM);
+                        Info(Brand, Color, washingTime, washingTemperature, washingRPM);
 
-                        sleep(1000);
-                        showOptions();
+                        Sleep(1000);
+                        ShowOptions();
                         break;
                     case 3:
-                        setWashingTime(180);
-                        setWashingTemperature(50);
-                        setWashingRPM(800);
+                        SetWashingTime(180);
+                        SetWashingTemperature(50);
+                        SetWashingRPM(800);
 
                         Console.WriteLine("Pralka ustawiona na tryb: Delikatne");
-                        info(brand, color, washingTime, washingTemperature, washingRPM);
+                        Info(Brand, Color, washingTime, washingTemperature, washingRPM);
 
-                        sleep(1000);
-                        showOptions();
+                        Sleep(1000);
+                        ShowOptions();
                         break;
                     case 4:
-                        setWashingTime(120);
-                        setWashingTemperature(60);
-                        setWashingRPM(1200);
+                        SetWashingTime(120);
+                        SetWashingTemperature(60);
+                        SetWashingRPM(1200);
 
                         Console.WriteLine("Pralka ustawiona na tryb: Codzienne");
-                        info(brand, color, washingTime, washingTemperature, washingRPM);
+                        Info(Brand, Color, washingTime, washingTemperature, washingRPM);
 
-                        sleep(1000);
-                        showOptions();
+                        Sleep(1000);
+                        ShowOptions();
                         break;
                     case 5:
-                        setWashingTime(15);
-                        setWashingTemperature(30);
-                        setWashingRPM(1500);
+                        SetWashingTime(15);
+                        SetWashingTemperature(30);
+                        SetWashingRPM(1500);
 
                         Console.WriteLine("Pralka ustawiona na tryb: Wirowanie");
-                        info(brand, color, washingTime, washingTemperature, washingRPM);
+                        Info(Brand, Color, washingTime, washingTemperature, washingRPM);
 
-                        sleep(1000);
-                        showOptions();
+                        Sleep(1000);
+                        ShowOptions();
                         break;
                     case 6:
-                        setWashingTime(0);
-                        setWashingTemperature(0);
-                        setWashingRPM(0);
+                        SetWashingTime(0);
+                        SetWashingTemperature(0);
+                        SetWashingRPM(0);
 
                         Console.WriteLine("\n");
                         Console.WriteLine("Pralka ustawiona na tryb: Manualny");
-                        info(brand, color, washingTime, washingTemperature, washingRPM);
+                        Info(Brand, Color, washingTime, washingTemperature, washingRPM);
 
-                        sleep(1000);
-                        showOptions();
+                        Sleep(1000);
+                        ShowOptions();
                         break;
                     case 7:
-                        info(brand, color, washingTime, washingTemperature, washingRPM);
+                        Info(Brand, Color, washingTime, washingTemperature, washingRPM);
                         break;
                 }
                 option = 0;
             } while (flag == false);
         }
 
-        private int setWashingTime(int wTime)
+        private int SetWashingTime(int wTime)
         {
             if (wTime != 0)
             {
@@ -180,7 +280,7 @@ namespace Program
             return washingTime;
         }
 
-        private int setWashingTemperature(int wTemp)
+        private int SetWashingTemperature(int wTemp)
         {
             if (wTemp != 0)
             {
@@ -205,7 +305,7 @@ namespace Program
             return washingTemperature;
         }
 
-        private int setWashingRPM(int wRPM)
+        private int SetWashingRPM(int wRPM)
         {
             if(wRPM != 0)
             {
@@ -229,7 +329,8 @@ namespace Program
             flag = false;
             return washingRPM;
         }
-        private void info(string brand, string color, int wTime, int wTemperature, int wRPM)
+
+        private void Info(string brand, string color, int wTime, int wTemperature, int wRPM)
         {
             Console.Clear();
             Console.WriteLine("### Pralka ### \n");
@@ -241,7 +342,7 @@ namespace Program
             Console.WriteLine("Ilość obrotów na minutę: " + wRPM + "\n");
         }
 
-        private void sleep(int sleepingTime)
+        private void Sleep(int sleepingTime)
         {
             Console.WriteLine("Powrót za: ");
             Thread.Sleep(sleepingTime);
@@ -253,9 +354,9 @@ namespace Program
             Thread.Sleep(sleepingTime);
         }
 
-        public string details()
+        public void CreateMessage()
         {
-            return "To jest " + name + " " + brand + " " + color;
+            Console.WriteLine($"{Name}: {Brand} {Color}");
         }
     }
 }

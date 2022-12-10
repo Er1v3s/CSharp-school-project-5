@@ -14,12 +14,43 @@ namespace Program
         private int coolingTemperature, freezingTemperature, option, id, doors;
         private bool flag = false;
         private string line;
-        private ArrayList shoppingList = new ArrayList();
+        private ArrayList shoppingList = new();
         public Fridge() { }
 
         public Fridge(int numOfDoors)
         {
             doors = numOfDoors;
+        }
+
+        public int SetNumOfDoors()
+        {
+            do
+            {
+                Console.WriteLine("Ilu drzwiowa ma być lodówka? 1 czy 2 \n");
+                Console.Write("Twój wybór: ");
+                try
+                {
+                    doors = Convert.ToInt32(Console.ReadLine());
+                }
+                catch (Exception)
+                {
+                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz!");
+                }
+
+                if (doors == 1 || doors == 2)
+                {
+                    flag = true;
+                }
+                else
+                {
+                    flag = false;
+                    Console.Clear();
+                    Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz!");
+                }
+
+            } while (flag == false);
+
+            return option;
         }
 
         protected internal void ShowOptions()
@@ -57,13 +88,13 @@ namespace Program
                 switch (option)
                 {
                     case 1:
-                        showCookbook();
+                        ShowCookbook();
                         break;
                     case 2:
-                        showShoppingList();
+                        ShowShoppingList();
                         break;
                     case 3:
-                        settings();
+                        Settings();
                         break;
                     case 4:
                         Environment.Exit(0);
@@ -80,7 +111,7 @@ namespace Program
             option = 0;
         }
 
-        private void showCookbook()
+        private void ShowCookbook()
         {
             Console.Clear();
 
@@ -124,21 +155,21 @@ namespace Program
                         case 1:
                             Console.Clear();
                             Console.WriteLine("Przepis na naleśniki: \n");
-                            fileReader("..\\..\\..\\..\\src\\przepisy\\nalesniki.txt");
+                            FileReader("xd");
 
                             flag = false;
                             break;
                         case 2:
                             Console.Clear();
                             Console.WriteLine("Przepis na kurczaka po chińsku: \n");
-                            fileReader("..\\..\\..\\..\\src\\przepisy\\kurczak.txt");
+                            FileReader("~\\..\\..\\..\\..\\src\\przepisy\\kurczak.txt");
 
                             flag = false;
                             break;
                         case 3:
                             Console.Clear();
                             Console.WriteLine("Przepis na zapiekanke ziemniaczną: \n");
-                            fileReader("..\\..\\..\\..\\src\\przepisy\\zapiekanka.txt");
+                            FileReader("..\\..\\..\\..\\src\\przepisy\\zapiekanka.txt");
 
                             flag = false;
                             break;
@@ -157,12 +188,12 @@ namespace Program
             else
             {
                 Console.WriteLine("Niestety tylko lodówki dwódrzwiowe są wyposażone w tą opcję \n");
-                sleep(1000);
+                Sleep(1000);
                 ShowOptions();
             }
         }
 
-        private void showShoppingList()
+        private void ShowShoppingList()
         {
             Console.Clear();
             if (doors == 2)
@@ -265,12 +296,12 @@ namespace Program
             } else
             {
                 Console.WriteLine("Niestety tylko lodówki dwódrzwiowe są wyposażone w tą opcję \n");
-                sleep(1000);
+                Sleep(1000);
                 ShowOptions();
             }
         }
 
-        private void settings()
+        private void Settings()
         {
             Console.Clear();
             do
@@ -307,15 +338,15 @@ namespace Program
                 {
                     case 1:
                         Console.Clear();
-                        setCoolingTemperature(1);
+                        SetCoolingTemperature(1);
                         break;
                     case 2:
                         Console.Clear();
-                        setFreezingTemperature(1);
+                        SetFreezingTemperature(1);
                         break;
                     case 3:
                         Console.Clear();
-                        defrosting();
+                        Defrosting();
                         break;
                     case 4:
                         ShowOptions();
@@ -331,7 +362,7 @@ namespace Program
             } while (!flag);
         }
 
-        private void setCoolingTemperature(int coolTemp)
+        private void SetCoolingTemperature(int coolTemp)
         {
             Console.WriteLine("Temperatura chłodzenia 1/3/5/7 (\u00b0C): ");
 
@@ -351,7 +382,7 @@ namespace Program
                     {
                         Console.Clear();
                         Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
-                        setCoolingTemperature(1);
+                        SetCoolingTemperature(1);
 
                     }
                 }
@@ -363,18 +394,18 @@ namespace Program
             }
             catch (Exception)
             { 
-                setCoolingTemperature(1);
+                SetCoolingTemperature(1);
             }
 
             option = 0;
             if (coolTemp != 0)
             {
-                sleep(1000);
+                Sleep(1000);
                 ShowOptions();
             }
         }
 
-        private void setFreezingTemperature(int freezTemp)
+        private void SetFreezingTemperature(int freezTemp)
         {
             Console.WriteLine("Temperatura mrożenia -14/-16/-18/-20 (\u00b0C): ");
 
@@ -394,7 +425,7 @@ namespace Program
                     {
                         Console.Clear();
                         Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
-                        setFreezingTemperature(1);
+                        SetFreezingTemperature(1);
 
                     }
                 }
@@ -405,30 +436,30 @@ namespace Program
             }
             catch (Exception)
             {
-                setFreezingTemperature(1);
+                SetFreezingTemperature(1);
             }
 
             option = 0;
             if(freezTemp != 0)
             {
-                sleep(1000);
+                Sleep(1000);
                 ShowOptions();
             }
         }
 
-        private void defrosting()
+        private void Defrosting()
         {
-            setCoolingTemperature(0);
-            setFreezingTemperature(0);
+            SetCoolingTemperature(0);
+            SetFreezingTemperature(0);
 
             Console.Clear();
             Console.WriteLine("Lodówka ustawiona na rozmrażanie \n");
 
-            sleep(1000);
+            Sleep(1000);
             ShowOptions();
         }
 
-        private void fileReader(string filepath)
+        private void FileReader(string filepath)
         {
             try
             {
@@ -446,7 +477,8 @@ namespace Program
                 Console.WriteLine("Jeżeli nie widzisz przepisu, zgłoś to do serwisu!");
             }
         }
-        private void sleep(int sleepingTime)
+
+        private void Sleep(int sleepingTime)
         {
             Console.WriteLine("Powrót za: ");
             Thread.Sleep(sleepingTime);

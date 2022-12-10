@@ -14,9 +14,9 @@ namespace App
     {
         static void Main()
         {
-            string brand = "Bosh", color = "czarna";
-            bool flag = false;
+            string brand = String.Empty ,color = String.Empty;
             bool sflag = false;
+            bool flag = false;
             int option = -1;
 
             do
@@ -41,64 +41,60 @@ namespace App
 
                     if (option == 1)
                     {
+                        Console.WriteLine("Wybrano Lodówkę \n");
                         Fridge fridge = new();
-
+                        fridge.SetNumOfDoors();
                         fridge.ShowOptions();
+
                     }
                     else if (option == 2)
                     {
-                        WashingMachine washingMachine1 = new();
                         Console.Clear();
+                        Console.WriteLine("W jaki sposób chciałbyś stworzyć swoją pralkę? \n");
+                        Console.WriteLine("1. Generuj sam");
+                        Console.WriteLine("2. Wybierz z istniejących");
+                        Console.WriteLine("3. Kopiuj z istniejących (warunek: wcześniej musiałeś skorzystać z opcji 1)\n");
+                        Console.Write("Twój wybór: ");
                         do
                         {
                             try
                             {
-                                Console.Write("Wybierz nazwę: ");
-                                washingMachine1.name = Console.ReadLine();
-                                Console.Write("Wybierz markę: ");
-                                washingMachine1.brand = Console.ReadLine();
-                                Console.Write("Wybierz kolor: ");
-                                washingMachine1.color = Console.ReadLine();
-
-                                if (washingMachine1.name != string.Empty
-                                    && washingMachine1.brand != string.Empty
-                                    && washingMachine1.color != string.Empty)
-                                {
-                                    if (!(int.TryParse(washingMachine1.name, out int value))
-                                        && !(int.TryParse(washingMachine1.brand, out int value2))
-                                        && !(int.TryParse(washingMachine1.color, out int value3)))
-                                    {
-                                        sflag = true;
-                                        Console.Clear();
-                                    }
-                                    else
-                                    {
-                                        throw new Exception("Wartość nie może być typu inteeger! Spróbuj ponownie \n");
-                                    }
-                                }
-                                else
-                                {
-                                    throw new Exception("Wartości nie mogą być puste! Spróbuj ponownie\n");
-                                }
+                                option = Convert.ToInt32(Console.ReadLine());
                             }
-                            catch (Exception e)
+                            catch (Exception)
                             {
+                                Console.WriteLine("Wprowadzono niepoprawną wartość!\n");
+                            }
+
+                            if(option == 1 || option == 2 || option == 3)
+                            {
+                                sflag = true;
                                 Console.Clear();
-                                Console.WriteLine(e.Message);
+                                if(option == 1)
+                                {
+                                    WashingMachine washingMachine = new();
+                                    washingMachine = washingMachine.CreateNewWashingMachine();
+                                    washingMachine.CreateMessage();
+                                    washingMachine.ShowOptions();
+                                }
+                                else if(option == 2)
+                                {
+                                    WashingMachine washingMachine = new();
+                                    washingMachine = washingMachine.CreateNewWashingMachine_usingConstructor(brand, color);
+                                    washingMachine.CreateMessage();
+                                    washingMachine.ShowOptions();
+                                }
+                                else if(option == 3)
+                                {
+                                    WashingMachine washingMachine = new();
+                                    washingMachine = washingMachine.CreateNewWashingMachine_usingCopy(washingMachine.CreateNewWashingMachine());
+                                    washingMachine.CreateMessage();
+                                    washingMachine.ShowOptions();
+                                }
                             }
                         } while (sflag == false);
-
-                        WashingMachine washingMachine2 = new("Pralka (stworzona za pomocą konstruktora): ", brand, color);
-                        WashingMachine washingMachine3 = new("Pralka (stworzona za pomocą kopi): ", washingMachine1);
-
-                        Console.WriteLine("### Lista pralek ###\n");
-                        Console.WriteLine($"1. {washingMachine1.details()}");
-                        Console.WriteLine($"2. {washingMachine2.details()} ");
-                        Console.WriteLine($"3. {washingMachine3.details()}");
-
-                        chooseYourWashingMachine();
+                        sflag = false;
                     }
-
                 } 
                 else
                 {
@@ -108,17 +104,6 @@ namespace App
 
                 option = -1;
             } while (!flag);
-
-            void chooseYourWashingMachine()
-            {
-                int option;
-
-                do
-                {
-                    Console.Write("\nWybierz swoją pralkę! ( 1 / 2 / 3 ): ");
-                    option = Convert.ToInt32(Console.ReadLine());
-                } while (!flag);
-            }
         }
     }
 }
