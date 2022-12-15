@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Reflection.Metadata;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
+using System.Text;
 
 namespace App
 {
@@ -47,7 +48,8 @@ namespace App
                         Console.WriteLine("Wersja lodówki z 2 drzwiami różni się funkcjami, czy chcesz zobaczyć DEMO jednej z nich?");
                         Console.WriteLine("1. TAK");
                         Console.WriteLine("2. NIE");
-                        Console.WriteLine("3. Chce zobaczyć ile drzwi miały by razem x drzwiowe lodówki!\n");
+                        Console.WriteLine("3. Chce zobaczyć ile drzwi miały by razem x drzwiowe lodówki!");
+                        Console.WriteLine("4. Chce porównać, która lodówka zużywa więcej prądu!\n");
                         Console.Write("Twój wybór: ");
                         int sOption = -1;
                         do
@@ -61,7 +63,7 @@ namespace App
                                 Console.WriteLine("Wprowadzono niepoprawną wartość!\n");
                             }
 
-                        } while (sOption != 1 && sOption != 2 && sOption != 3);
+                        } while (sOption != 1 && sOption != 2 && sOption != 3 && sOption !=4 );
 
                         if (sOption == 1)
                         {
@@ -88,6 +90,23 @@ namespace App
 
                             Fridge f3 = f1 + f2;
                             Console.WriteLine($"\nObie lodówki razem miały by {f3.Doors} drzwi");
+                        }
+                        else if (sOption == 4)
+                        {
+                            Console.Clear();
+
+                            Fridge f1 = new Fridge();
+                            Console.Write("Pierwsza: ");
+                            f1.SetNumOfDoors();
+
+                            Console.Write("\nDruga: ");
+                            Fridge f2 = new Fridge();
+                            f2.SetNumOfDoors();
+
+                            Fridge f3 = f1 > f2;
+                            Console.WriteLine($"\nLodówka o liczbie drzwi {f1.Doors} zużywa {f1.ZuzyciePradu} prądu.");
+                            Console.WriteLine($"Lodówka o liczbie drzwi {f2.Doors} zużywa {f2.ZuzyciePradu} prądu.");
+                            Console.WriteLine($"Więcej prądu zużywa lodówka o liczbie drzwi {f3.Doors}");
                         }
                     }
                     else if (option == 2)

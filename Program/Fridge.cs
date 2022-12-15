@@ -17,6 +17,10 @@ namespace Program
         private string line;
         private static ArrayList shoppingList = new();
 
+        private int zuzyciePradu;
+
+        public int ZuzyciePradu { get { return zuzyciePradu; } }
+
         public static int Option
         {
             get { return option; }
@@ -32,6 +36,30 @@ namespace Program
         public static Fridge operator +(Fridge left, Fridge right)
         {
             return new Fridge(left.doors + right.doors);
+        }
+
+        public static Fridge operator >(Fridge left, Fridge right)
+        {
+            if(left.zuzyciePradu > right.zuzyciePradu)
+            {
+                return new Fridge(left.doors);
+            }
+            else
+            {
+                return new Fridge(right.doors);
+            }
+        }
+
+        public static Fridge operator <(Fridge left, Fridge right)
+        {
+            if (left.zuzyciePradu < right.zuzyciePradu)
+            {
+                return new Fridge(right.doors);
+            }
+            else
+            {
+                return new Fridge(left.doors);
+            }
         }
 
         public Fridge() { }
@@ -70,6 +98,15 @@ namespace Program
                 }
 
             } while (flag == false);
+
+            if(doors == 1)
+            {
+                zuzyciePradu = 650;
+            }
+            else if(doors == 2)
+            {
+                zuzyciePradu = 1000;
+            }
 
             return option;
         }
