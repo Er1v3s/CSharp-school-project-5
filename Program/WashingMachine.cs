@@ -14,6 +14,8 @@ namespace Program
         bool flag;
         private int washingTime, washingTemperature, washingRPM, option;
 
+        private double zuzyciePradu = 450;
+
         // Pobiera i ustawia wartość atrybutu
         public string Name { get; set; }
         public string Brand { get; set; }

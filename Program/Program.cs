@@ -46,7 +46,8 @@ namespace App
                         Console.WriteLine("Wybrano Lodówkę \n");
                         Console.WriteLine("Wersja lodówki z 2 drzwiami różni się funkcjami, czy chcesz zobaczyć DEMO jednej z nich?");
                         Console.WriteLine("1. TAK");
-                        Console.WriteLine("2. NIE\n");
+                        Console.WriteLine("2. NIE");
+                        Console.WriteLine("3. Chce zobaczyć ile drzwi miały by razem x drzwiowe lodówki!\n");
                         Console.Write("Twój wybór: ");
                         int sOption = -1;
                         do
@@ -60,7 +61,7 @@ namespace App
                                 Console.WriteLine("Wprowadzono niepoprawną wartość!\n");
                             }
 
-                        } while (sOption != 1 && sOption != 2);
+                        } while (sOption != 1 && sOption != 2 && sOption != 3);
 
                         if (sOption == 1)
                         {
@@ -72,6 +73,21 @@ namespace App
                             Fridge fridge = new();
                             fridge.SetNumOfDoors();
                             fridge.ShowOptions();
+                        }
+                        else if(sOption == 3)
+                        {
+                            Console.Clear();
+
+                            Fridge f1 = new Fridge();
+                            Console.Write("Pierwsza: ");
+                            f1.SetNumOfDoors();
+
+                            Console.Write("\nDruga: ");
+                            Fridge f2 = new Fridge();
+                            f2.SetNumOfDoors();
+
+                            Fridge f3 = f1 + f2;
+                            Console.WriteLine($"\nObie lodówki razem miały by {f3.Doors} drzwi");
                         }
                     }
                     else if (option == 2)

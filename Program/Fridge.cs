@@ -11,8 +11,8 @@ namespace Program
 {
     internal class Fridge
     {
-        private int coolingTemperature, freezingTemperature;
-        private static int option, doors;
+        private int coolingTemperature, freezingTemperature, doors;
+        private static int option;
         private static bool flag = false;
         private string line;
         private static ArrayList shoppingList = new();
@@ -29,12 +29,19 @@ namespace Program
             set { flag = value; }
         }
 
+        public static Fridge operator +(Fridge left, Fridge right)
+        {
+            return new Fridge(left.doors + right.doors);
+        }
+
         public Fridge() { }
 
         public Fridge(int numOfDoors)
         {
             doors = numOfDoors;
         }
+
+        public int Doors { get { return doors;  } }
 
         public int SetNumOfDoors()
         {
@@ -218,9 +225,8 @@ namespace Program
                 {
                     Console.WriteLine("1. Dodaj artykół");
                     Console.WriteLine("2. Usuń artykół");
-                    Console.WriteLine("3. Wyczyść listę");
-                    Console.WriteLine("4. Powrót");
-                    Console.WriteLine("5. Wyjdź \n");
+                    Console.WriteLine("3. Wyczyść listę");;
+                    Console.WriteLine("4. Wyjdź \n");
 
                     Console.WriteLine("### Lista zakupów ### \n");
 
