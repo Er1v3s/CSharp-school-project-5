@@ -2,6 +2,7 @@
 using Program;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.Data;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq.Expressions;
 using System.Reflection.Metadata;
@@ -14,7 +15,7 @@ namespace App
     {
         static void Main()
         {
-            string brand = String.Empty ,color = String.Empty;
+            string brand = String.Empty, color = String.Empty;
             bool sflag = false;
             bool flag = false;
             int option = -1;
@@ -29,7 +30,7 @@ namespace App
                 try
                 {
                     option = Convert.ToInt32(Console.ReadLine());
-                } 
+                }
                 catch (Exception)
                 {
                     Console.WriteLine("Wprowadzono niepoprawną wartość!\n");
@@ -41,11 +42,37 @@ namespace App
 
                     if (option == 1)
                     {
+                        Console.Clear();
                         Console.WriteLine("Wybrano Lodówkę \n");
-                        Fridge fridge = new();
-                        fridge.SetNumOfDoors();
-                        fridge.ShowOptions();
+                        Console.WriteLine("Wersja lodówki z 2 drzwiami różni się funkcjami, czy chcesz zobaczyć DEMO jednej z nich?");
+                        Console.WriteLine("1. TAK");
+                        Console.WriteLine("2. NIE\n");
+                        Console.Write("Twój wybór: ");
+                        int sOption = -1;
+                        do
+                        {
+                            try
+                            {
+                                sOption = Convert.ToInt32(Console.ReadLine());
+                            }
+                            catch (Exception)
+                            {
+                                Console.WriteLine("Wprowadzono niepoprawną wartość!\n");
+                            }
 
+                        } while (sOption != 1 && sOption != 2);
+
+                        if (sOption == 1)
+                        {
+                            Fridge.ShowShoppingList(2, Fridge.Flag, Fridge.Option);
+                        }
+                        else if (sOption == 2)
+                        {
+                            Console.Clear();
+                            Fridge fridge = new();
+                            fridge.SetNumOfDoors();
+                            fridge.ShowOptions();
+                        }
                     }
                     else if (option == 2)
                     {
@@ -66,11 +93,11 @@ namespace App
                                 Console.WriteLine("Wprowadzono niepoprawną wartość!\n");
                             }
 
-                            if(option == 1 || option == 2 || option == 3)
+                            if (option == 1 || option == 2 || option == 3)
                             {
                                 sflag = true;
                                 Console.Clear();
-                                if(option == 1)
+                                if (option == 1)
                                 {
                                     WashingMachine washingMachine = new();
                                     washingMachine = washingMachine.CreateNewWashingMachine();
@@ -78,7 +105,7 @@ namespace App
                                     Thread.Sleep(5000);
                                     washingMachine.ShowOptions();
                                 }
-                                else if(option == 2)
+                                else if (option == 2)
                                 {
                                     WashingMachine washingMachine = new();
                                     washingMachine = washingMachine.CreateNewWashingMachine_usingConstructor(brand, color);
@@ -86,7 +113,7 @@ namespace App
                                     Thread.Sleep(5000);
                                     washingMachine.ShowOptions();
                                 }
-                                else if(option == 3)
+                                else if (option == 3)
                                 {
                                     WashingMachine washingMachine = new();
                                     washingMachine = washingMachine.CreateNewWashingMachine_usingCopy(washingMachine.CreateNewWashingMachine());
@@ -98,7 +125,7 @@ namespace App
                         } while (sflag == false);
                         sflag = false;
                     }
-                } 
+                }
                 else
                 {
                     Console.Clear();
