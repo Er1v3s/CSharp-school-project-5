@@ -11,16 +11,65 @@ namespace Program
 {
     internal class Fridge
     {
-        private int coolingTemperature, freezingTemperature, option, id, doors;
-        private bool flag = false;
+        private int coolingTemperature, freezingTemperature, doors;
+        private static int option;
+        private static bool flag = false;
         private string line;
-        private ArrayList shoppingList = new();
+        private static ArrayList shoppingList = new();
+
+        private int zuzyciePradu;
+
+        public int ZuzyciePradu { get { return zuzyciePradu; } }
+
+        public static int Option
+        {
+            get { return option; }
+            set { option = value; }
+        }
+
+        public static bool Flag
+        {
+            get { return flag; }
+            set { flag = value; }
+        }
+
+        public static Fridge operator +(Fridge left, Fridge right)
+        {
+            return new Fridge(left.doors + right.doors);
+        }
+
+        public static Fridge operator >(Fridge left, Fridge right)
+        {
+            if(left.zuzyciePradu > right.zuzyciePradu)
+            {
+                return new Fridge(left.doors);
+            }
+            else
+            {
+                return new Fridge(right.doors);
+            }
+        }
+
+        public static Fridge operator <(Fridge left, Fridge right)
+        {
+            if (left.zuzyciePradu < right.zuzyciePradu)
+            {
+                return new Fridge(right.doors);
+            }
+            else
+            {
+                return new Fridge(left.doors);
+            }
+        }
+
         public Fridge() { }
 
         public Fridge(int numOfDoors)
         {
             doors = numOfDoors;
         }
+
+        public int Doors { get { return doors;  } }
 
         public int SetNumOfDoors()
         {
@@ -49,6 +98,15 @@ namespace Program
                 }
 
             } while (flag == false);
+
+            if(doors == 1)
+            {
+                zuzyciePradu = 650;
+            }
+            else if(doors == 2)
+            {
+                zuzyciePradu = 1000;
+            }
 
             return option;
         }
@@ -91,7 +149,7 @@ namespace Program
                         ShowCookbook();
                         break;
                     case 2:
-                        ShowShoppingList();
+                        ShowShoppingList(doors, flag, option);
                         break;
                     case 3:
                         Settings();
@@ -193,19 +251,19 @@ namespace Program
             }
         }
 
-        private void ShowShoppingList()
+        public static void ShowShoppingList(int doorsRef, bool flagRef, int optionRef)
         {
             Console.Clear();
-            if (doors == 2)
+            if (doorsRef == 2)
             {
+                int id;
                 string article;
                 do
                 {
                     Console.WriteLine("1. Dodaj artykół");
                     Console.WriteLine("2. Usuń artykół");
-                    Console.WriteLine("3. Wyczyść listę");
-                    Console.WriteLine("4. Powrót");
-                    Console.WriteLine("5. Wyjdź \n");
+                    Console.WriteLine("3. Wyczyść listę");;
+                    Console.WriteLine("4. Wyjdź \n");
 
                     Console.WriteLine("### Lista zakupów ### \n");
 
@@ -223,33 +281,33 @@ namespace Program
 
                     try
                     {
-                        option = Convert.ToInt32(Console.ReadLine());
+                        optionRef = Convert.ToInt32(Console.ReadLine());
                     }
                     catch (Exception)
                     {
-                        flag = false;
+                        flagRef = false;
                         Console.Clear();
                     }
 
-                    if (option == 1 || option == 2 || option == 3 || option == 4 || option == 5)
+                    if (optionRef == 1 || optionRef == 2 || optionRef == 3 || optionRef == 4 || optionRef == 5)
                     {
                         flag = true;
                     }
                     else
                     {
-                        flag = false;
+                        flagRef = false;
                         Console.Clear();
                         Console.WriteLine("Nieprawidłowa wartość, wprowadź jeszcze raz! \n");
                     }
 
-                    switch (option)
+                    switch (optionRef)
                     {
                         case 1:
                             Console.Write("nazwa artykułu: ");
                             article = Console.ReadLine();
                             shoppingList.Add(article);
                             Console.Clear();
-                            flag = false;
+                            flagRef = false;
                             break;
                         case 2:
                             if (shoppingList.Count > 0)
@@ -265,7 +323,7 @@ namespace Program
                                 }
                                 catch (Exception)
                                 {
-                                    flag = false;
+                                    flagRef = false;
                                     Console.Clear();
                                     Console.WriteLine("Na liście nie ma takiego artykułu! \n");
                                 }
@@ -275,29 +333,25 @@ namespace Program
                                 Console.Clear();
                                 Console.WriteLine("Na liśnie jeszcze nic nie ma! \n");
                             }
-                            flag = false;
+                            flagRef = false;
                             break;
                         case 3:
                             shoppingList.Clear();
                             Console.Clear();
-                            flag = false;
+                            flagRef = false;
                             break;
                         case 4:
-                            ShowOptions();
-                            break;
-                        case 5:
                             Environment.Exit(0);
                             break;
                     }
-                    option = 0;
-                } while (!flag);
-                flag = false;
-                option = 0;
+                    optionRef = 0;
+                } while (!flagRef);
+                flagRef = false;
+                optionRef = 0;
             } else
             {
                 Console.WriteLine("Niestety tylko lodówki dwódrzwiowe są wyposażone w tą opcję \n");
                 Sleep(1000);
-                ShowOptions();
             }
         }
 
@@ -478,7 +532,7 @@ namespace Program
             }
         }
 
-        private void Sleep(int sleepingTime)
+        private static void Sleep(int sleepingTime)
         {
             Console.WriteLine("Powrót za: ");
             Thread.Sleep(sleepingTime);
